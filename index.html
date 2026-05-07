@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Розклад уроків</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Розклад уроків</h1>
+
+    <div class="days-nav">
+      <button class="day-btn active" data-day="monday">Понеділок</button>
+      <button class="day-btn" data-day="tuesday">Вівторок</button>
+      <button class="day-btn" data-day="wednesday">Середа</button>
+      <button class="day-btn" data-day="thursday">Четвер</button>
+      <button class="day-btn" data-day="friday">П'ятниця</button>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="schedule-area">
+      <table class="schedule-table" id="scheduleTable">
+        <thead>
+          <tr>
+            <th>№</th>
+            <th>Час</th>
+            <th>Предмет</th>
+            <th>Посилання</th>
+          </tr>
+        </thead>
+        <tbody id="scheduleBody">
+          <!-- Schedule rows will be inserted here -->
+        </tbody>
+      </table>
+    </div>
+
+    <button class="admin-toggle" id="adminToggle">Адмін-панель</button>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+      <div class="admin-header">
+        <h2>Редагування розкладу</h2>
+        <button class="close-btn" id="closeAdmin">&times;</button>
+      </div>
+
+      <div class="admin-content">
+        <div class="form-group">
+          <label>День тижня:</label>
+          <select id="adminDay">
+            <option value="monday">Понеділок</option>
+            <option value="tuesday">Вівторок</option>
+            <option value="wednesday">Середа</option>
+            <option value="thursday">Четвер</option>
+            <option value="friday">П'ятниця</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Номер уроку:</label>
+          <select id="lessonNumber">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Час:</label>
+          <input type="text" id="lessonTime" placeholder="08:30 - 09:15">
+        </div>
+
+        <div class="form-group">
+          <label>Назва предмету:</label>
+          <input type="text" id="lessonName" placeholder="Математика">
+        </div>
+
+        <div class="form-group">
+          <label>Посилання на урок:</label>
+          <input type="url" id="lessonLink" placeholder="https://meet.google.com/...">
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label>
+            <input type="checkbox" id="hasGroups">
+            Поділ на групи
+          </label>
+        </div>
+
+        <div class="groups-section" id="groupsSection">
+          <div class="form-group">
+            <label>Група 1 - Посилання:</label>
+            <input type="url" id="group1Link" placeholder="https://meet.google.com/...">
+          </div>
+          <div class="form-group">
+            <label>Група 2 - Посилання:</label>
+            <input type="url" id="group2Link" placeholder="https://meet.google.com/...">
+          </div>
+        </div>
+
+        <div class="admin-buttons">
+          <button class="btn-save" id="saveLesson">Зберегти</button>
+          <button class="btn-delete" id="deleteLesson">Видалити</button>
+          <button class="btn-clear" id="clearAll">Очистити все</button>
+        </div>
+
+        <button class="btn-logout" id="logoutAdmin">Вийти з адмін-режиму</button>
+
+        <div class="import-export">
+          <button class="btn-export" id="exportData">Скачати JSON</button>
+          <label class="btn-import">
+            Завантажити JSON
+            <input type="file" id="importData" accept=".json" hidden>
+          </label>
+          <button class="btn-generate" id="generateCode">Згенерувати data.js</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Code Modal -->
+    <div class="code-modal" id="codeModal">
+      <div class="code-modal-header">
+        <h3>Код для data.js</h3>
+        <button class="close-btn" id="closeCode">&times;</button>
+      </div>
+      <div class="code-modal-content">
+        <p>Скопіюйте цей код і замініть вміст файлу data.js у вашому репозиторії:</p>
+        <pre id="generatedCode"></pre>
+        <button class="btn-copy" id="copyCode">Скопіювати код</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
