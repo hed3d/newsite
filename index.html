@@ -1,148 +1,713 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Розклад уроків</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>10Л</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Montserrat',sans-serif;
+  background:#090909;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+#particles-canvas{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+}
+
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+  radial-gradient(circle at top left,#1b1b1b,transparent 40%),
+  radial-gradient(circle at bottom right,#101820,transparent 40%);
+  z-index:-1;
+}
+
+/* NAVBAR */
+
+.navbar{
+  width:100%;
+  height:80px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 40px;
+  position:fixed;
+  top:0;
+  left:0;
+  backdrop-filter:blur(10px);
+  background:rgba(0,0,0,0.25);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  z-index:999;
+}
+
+.nav-logo{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  font-size:28px;
+  font-weight:700;
+}
+
+.logo-letter{
+  color:#9ddcff;
+}
+
+.nav-links{
+  display:flex;
+  gap:25px;
+  list-style:none;
+}
+
+.nav-link{
+  text-decoration:none;
+  color:white;
+  opacity:.7;
+  transition:.25s;
+}
+
+.nav-link:hover{
+  opacity:1;
+  color:#9ddcff;
+}
+
+/* HERO */
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:140px 8%;
+  position:relative;
+  gap:60px;
+}
+
+.hero-content{
+  max-width:550px;
+}
+
+.hero-badge{
+  display:inline-block;
+  padding:10px 18px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+  margin-bottom:25px;
+  font-size:14px;
+}
+
+.hero-title{
+  font-size:85px;
+  line-height:1;
+  margin-bottom:25px;
+}
+
+.highlight{
+  color:#9ddcff;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:15px;
+}
+
+.btn{
+  border:none;
+  cursor:pointer;
+  transition:.25s;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+
+.btn-primary{
+  background:#9ddcff;
+  color:black;
+  padding:14px 24px;
+  border-radius:14px;
+  font-weight:600;
+}
+
+.btn-primary:hover{
+  transform:translateY(-3px);
+}
+
+.btn-secondary{
+  background:rgba(255,255,255,0.06);
+  color:white;
+  padding:14px 24px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+/* HERO VISUAL */
+
+.hero-visual{
+  position:relative;
+  width:500px;
+  height:500px;
+}
+
+.image-card{
+  position:absolute;
+  width:220px;
+  height:140px;
+  overflow:hidden;
+  border-radius:22px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 10px 40px rgba(0,0,0,0.4);
+}
+
+.image-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.card-1{
+  top:30px;
+  left:0;
+  animation:float 6s ease-in-out infinite;
+}
+
+.card-2{
+  right:0;
+  top:180px;
+  animation:float 8s ease-in-out infinite;
+}
+
+.card-3{
+  left:80px;
+  bottom:20px;
+  animation:float 7s ease-in-out infinite;
+}
+
+@keyframes float{
+  0%{
+    transform:translateY(0px);
+  }
+  50%{
+    transform:translateY(-18px);
+  }
+  100%{
+    transform:translateY(0px);
+  }
+}
+
+.orb{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(60px);
+  opacity:.3;
+}
+
+.orb-1{
+  width:180px;
+  height:180px;
+  background:#9ddcff;
+  top:0;
+  right:50px;
+}
+
+.orb-2{
+  width:140px;
+  height:140px;
+  background:#ffffff;
+  bottom:0;
+  left:0;
+}
+
+.orb-3{
+  width:120px;
+  height:120px;
+  background:#4d6fff;
+  bottom:100px;
+  right:0;
+}
+
+/* SCHEDULE */
+
+.schedule{
+  padding:60px 8% 120px;
+}
+
+.schedule-title{
+  font-size:50px;
+  margin-bottom:50px;
+}
+
+.day-title{
+  margin-bottom:15px;
+  margin-top:35px;
+  color:#9ddcff;
+  font-size:28px;
+}
+
+.schedule-table{
+  width:100%;
+  border-collapse:collapse;
+  background:rgba(255,255,255,0.03);
+  backdrop-filter:blur(12px);
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.06);
+}
+
+.schedule-table tr{
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.schedule-table tr:last-child{
+  border-bottom:none;
+}
+
+.schedule-table td{
+  padding:16px 18px;
+}
+
+.schedule-table td:first-child{
+  width:70%;
+}
+
+.schedule-table td:last-child{
+  text-align:right;
+}
+
+.lesson-btn{
+  padding:8px 14px;
+  font-size:13px;
+  border-radius:10px;
+  background:#9ddcff;
+  color:black;
+  text-decoration:none;
+  font-weight:600;
+}
+
+/* FOOTER */
+
+.footer{
+  padding:40px;
+  border-top:1px solid rgba(255,255,255,0.06);
+  text-align:center;
+  opacity:.7;
+}
+
+/* MOBILE */
+
+@media(max-width:950px){
+
+  .hero{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .hero-buttons{
+    justify-content:center;
+  }
+
+  .hero-title{
+    font-size:55px;
+  }
+
+  .hero-visual{
+    width:100%;
+    height:420px;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+}
+
+@media(max-width:700px){
+
+  .navbar{
+    padding:0 20px;
+  }
+
+  .hero{
+    padding:120px 20px 60px;
+  }
+
+  .schedule{
+    padding:40px 20px 100px;
+  }
+
+  .schedule-table td{
+    padding:12px;
+    font-size:13px;
+  }
+
+  .lesson-btn{
+    font-size:11px;
+    padding:6px 10px;
+  }
+
+  .image-card{
+    width:150px;
+    height:100px;
+  }
+
+  .hero-title{
+    font-size:42px;
+  }
+  table[data-day]{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  margin-bottom:35px;
+  background:rgba(255,255,255,0.04);
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 10px 40px rgba(0,0,0,.35);
+}
+
+table[data-day] tr{
+  transition:.25s;
+}
+
+table[data-day] tr:hover{
+  background:rgba(157,220,255,.05);
+}
+
+table[data-day] tr:not(:last-child){
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+table[data-day] td{
+  padding:18px 20px;
+  vertical-align:middle;
+}
+
+table[data-day] td:first-child{
+  width:65%;
+  font-size:15px;
+  font-weight:500;
+  color:white;
+}
+
+table[data-day] td:last-child{
+  width:35%;
+  text-align:right;
+}
+
+table[data-day] .btn{
+  padding:10px 14px;
+  border-radius:12px;
+  font-size:12px;
+  font-weight:700;
+  margin:4px;
+  white-space:nowrap;
+}
+
+h3[data-day]{
+  margin-top:40px;
+  margin-bottom:16px;
+  font-size:32px;
+  color:#9ddcff;
+  text-shadow:0 0 15px rgba(157,220,255,.25);
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+  table[data-day]{
+    border-radius:18px;
+  }
+
+  table[data-day] tr{
+    display:flex;
+    flex-direction:column;
+    padding:14px;
+    gap:14px;
+    border-bottom:1px solid rgba(255,255,255,.06);
+  }
+
+  table[data-day] td{
+    width:100% !important;
+    display:block;
+    padding:0;
+    text-align:left !important;
+  }
+
+  table[data-day] td:first-child{
+    font-size:14px;
+    line-height:1.5;
+  }
+
+  table[data-day] td:last-child{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  table[data-day] .btn{
+    flex:1;
+    min-width:120px;
+    justify-content:center;
+    padding:11px 10px;
+    font-size:11px;
+    border-radius:12px;
+  }
+
+  h3[data-day]{
+    font-size:24px;
+    margin-top:28px;
+  }
+
+}
+
+/* VERY SMALL */
+
+@media(max-width:420px){
+
+  table[data-day]{
+    border-radius:16px;
+  }
+
+  table[data-day] tr{
+    padding:12px;
+  }
+
+  table[data-day] .btn{
+    width:100%;
+    flex:none;
+  }
+
+}
+}
+
+  </style>
 </head>
+
 <body>
-  <div class="container">
-    <h1 class="title">Розклад уроків</h1>
 
-    <div class="days-nav">
-      <button class="day-btn active" data-day="monday">Понеділок</button>
-      <button class="day-btn" data-day="tuesday">Вівторок</button>
-      <button class="day-btn" data-day="wednesday">Середа</button>
-      <button class="day-btn" data-day="thursday">Четвер</button>
-      <button class="day-btn" data-day="friday">П'ятниця</button>
-    </div>
+<canvas id="particles-canvas"></canvas>
 
-    <div class="separator"></div>
+<nav class="navbar">
 
-    <div class="schedule-area">
-      <table class="schedule-table" id="scheduleTable">
-        <thead>
-          <tr>
-            <th>№</th>
-            <th>Час</th>
-            <th>Предмет</th>
-            <th>Посилання</th>
-          </tr>
-        </thead>
-        <tbody id="scheduleBody">
-          <!-- Schedule rows will be inserted here -->
-        </tbody>
-      </table>
-    </div>
-
-    <button class="admin-toggle" id="adminToggle">Адмін-панель</button>
-
-    <!-- Admin Panel -->
-    <div class="admin-panel" id="adminPanel">
-      <div class="admin-header">
-        <h2>Редагування розкладу</h2>
-        <button class="close-btn" id="closeAdmin">&times;</button>
-      </div>
-
-      <div class="admin-content">
-        <div class="form-group">
-          <label>День тижня:</label>
-          <select id="adminDay">
-            <option value="monday">Понеділок</option>
-            <option value="tuesday">Вівторок</option>
-            <option value="wednesday">Середа</option>
-            <option value="thursday">Четвер</option>
-            <option value="friday">П'ятниця</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label>Номер уроку:</label>
-          <select id="lessonNumber">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label>Час:</label>
-          <input type="text" id="lessonTime" placeholder="08:30 - 09:15">
-        </div>
-
-        <div class="form-group">
-          <label>Назва предмету:</label>
-          <input type="text" id="lessonName" placeholder="Математика">
-        </div>
-
-        <div class="form-group">
-          <label>Посилання на урок:</label>
-          <input type="url" id="lessonLink" placeholder="https://meet.google.com/...">
-        </div>
-
-        <div class="form-group checkbox-group">
-          <label>
-            <input type="checkbox" id="hasGroups">
-            Поділ на групи
-          </label>
-        </div>
-
-        <div class="groups-section" id="groupsSection">
-          <div class="form-group">
-            <label>Група 1 - Посилання:</label>
-            <input type="url" id="group1Link" placeholder="https://meet.google.com/...">
-          </div>
-          <div class="form-group">
-            <label>Група 2 - Посилання:</label>
-            <input type="url" id="group2Link" placeholder="https://meet.google.com/...">
-          </div>
-        </div>
-
-        <div class="admin-buttons">
-          <button class="btn-save" id="saveLesson">Зберегти</button>
-          <button class="btn-delete" id="deleteLesson">Видалити</button>
-          <button class="btn-clear" id="clearAll">Очистити все</button>
-        </div>
-
-        <button class="btn-logout" id="logoutAdmin">Вийти з адмін-режиму</button>
-
-        <div class="import-export">
-          <button class="btn-export" id="exportData">Скачати JSON</button>
-          <label class="btn-import">
-            Завантажити JSON
-            <input type="file" id="importData" accept=".json" hidden>
-          </label>
-          <button class="btn-generate" id="generateCode">Згенерувати data.js</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="overlay" id="overlay"></div>
-
-    <!-- Code Modal -->
-    <div class="code-modal" id="codeModal">
-      <div class="code-modal-header">
-        <h3>Код для data.js</h3>
-        <button class="close-btn" id="closeCode">&times;</button>
-      </div>
-      <div class="code-modal-content">
-        <p>Скопіюйте цей код і замініть вміст файлу data.js у вашому репозиторії:</p>
-        <pre id="generatedCode"></pre>
-        <button class="btn-copy" id="copyCode">Скопіювати код</button>
-      </div>
-    </div>
+  <div class="nav-logo">
+    <span>✎10</span>
+    <span class="logo-letter">Л</span>
   </div>
 
-  <script src="data.js"></script>
-  <script src="main.js"></script>
-</body>
+  <ul class="nav-links">
+    <li><a href="#" class="nav-link">головна</a></li>
+    <li><a href="#schedule" class="nav-link">розклад</a></li>
+    <li><a href="#footer" class="nav-link">контакти</a></li>
+  </ul>
+
+</nav>
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <div class="hero-badge">
+      вітання
+    </div>
+
+    <h1 class="hero-title">
+      10<span class="highlight">л клас</span>
+    </h1>
+
+    <div class="hero-buttons">
+
+      <button class="btn btn-primary">
+        дізнатися більше
+      </button>
+
+      <button class="btn btn-secondary">
+        наші досягнення
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- FLOATING IMAGES -->
+
+  <div class="hero-visual">
+
+    <div class="image-card card-1">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJexfjSanYNmSsZ3yarsqPhyd50wGYUF1Y2Q&s">
+    </div>
+
+    <div class="image-card card-2">
+      <img src="https://i.ibb.co/0jJFWkvF/5195022644464523275.jpg">
+    </div>
+
+    <div class="image-card card-3">
+      <img src="https://i.ibb.co/8LR5snms/5195022644464523274.jpg">
+    </div>
+
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+  </div>
+
+</section>
+
+<!-- РОЗКЛАД -->
+<section id="about" class="abosut">
+  <div class="sectiobn-header">
+    <div class="forsadm-group">
+
+      <!-- Понеділок -->
+      <h3 data-day="monday"><span class="logo-text">понеділок</span></h3>
+      <table data-day="monday">
+        <tr><td>📚Українська література 08:00–08:45</td><td><a class="btn btn-primary" href="https://meet.google.com/ked-wbuz-bkz">Онлайн урок</a></td></tr>
+        <tr><td>🏰Історія України 08:50–09:35</td><td><a class="btn btn-primary" href="https://meet.google.com/ewk-rjdu-rxq">Онлайн урок</a></td></tr>
+        <tr><td>💻Інформатика 09:40–10:30</td><td><a class="btn btn-primary" href="https://meet.google.com/xha-ymjx-sga">група 1</a> <a class="btn btn-primary" href="https://meet.google.com/aya-qogn-ytw">група 2</a></td></tr>
+        <tr><td>🗣️Англійська мова 10:40–11:25</td><td><a class="btn btn-primary" href="https://meet.google.com/ekh-jxsg-kwa">група 1</a> <a class="btn btn-primary" href="https://meet.google.com/euj-tcid-vuk">група 2</a></td></tr>
+        <tr><td>➗Математика 11:35–12:20</td><td><a class="btn btn-primary" href="https://meet.google.com/pbv-todf-wmq">Онлайн урок</a></td></tr>
+        <tr><td>➗Математика 12:25–13:10</td><td><a class="btn btn-primary" href="https://meet.google.com/pbv-todf-wmq">Онлайн урок</a></td></tr>
+      </table>
+
+      <!-- остальные дни без изменений -->
+
+    <!-- Вівторок -->
+    <h3 data-day="tuesday"><span class="logo-text">вівторок</span></h3>
+    <table data-day="tuesday">
+      <tr><td>🛡️Захист України 08:00–08:45 </td><td><a class="btn btn-primary" href="https://meet.google.com/pct-iynx-qtr">група 1</a> <a class="btn btn-primary" href="https://meet.google.com/crv-uwvg-vkk">група 2</a></td></tr>
+      <tr><td>🏛️Громадянська освіта 08:50–09:35 </td><td><a class="btn btn-primary" href="https://meet.google.com/ugr-bxbm-ywi">Онлайн урок</a></td></tr>
+      <tr><td>🧬Біологія 09:45–10:30 </td><td><a class="btn btn-primary" href="https://meet.google.com/bkb-xhph-vfx">Онлайн урок</a></td></tr>
+      <tr><td>✍️Українська мова 10:40–11:25 </td><td><a class="btn btn-primary" href="https://meet.google.com/syg-wkdi-bpz">група 1</a> <a class="btn btn-primary" href="https://meet.google.com/hpz-yadh-itq">група 2</a></td></tr>
+      <tr><td>✍️Українська мова 11:35–12:20 </td><td><a class="btn btn-primary" href="https://meet.google.com/syg-wkdi-bpz">група 1</a> <a class="btn btn-primary" href="https://meet.google.com/hpz-yadh-itq">група 2</a></td></tr>
+      <tr><td>💬Година спілкування 12:25–13:10 </td><td><a class="btn btn-primary" href="https://meet.google.com/syg-wkdi-bpz">Онлайн урок</a></td></tr>
+    </table>
+
+    <!-- Середа -->
+    <h3 data-day="wednesday"><span class="logo-text">середа</span></h3>
+    <table data-day="wednesday">
+      <tr><td>🏰Історія України 08:00–08:45 </td><td><a class="btn btn-primary" href="https://meet.google.com/ewk-rjdu-rxq">Онлайн урок</a></td></tr>
+      <tr><td>🗣️Англійська мова 08:50–09:35 </td><td><a class="btn btn-primary" href=https://meet.google.com/ekh-jxsg-kwa">група 1</a> <a class="btn btn-primary" href="https://meet.google.com/euj-tcid-vuk">група 2</a></td></tr>
+      <tr><td>🏃‍♂️Фізична культура 09:45–10:30 </td><td><a class="btn btn-primary" href="https://meet.google.com/qdn-noim-xrw">Онлайн урок</a></td></tr>
+      <tr><td>🌍Всесвітня історія 10:40–11:25 </td><td><a class="btn btn-primary" href="https://meet.google.com/ewk-rjdu-rxq">Онлайн урок</a></td></tr>
+      <tr><td>🗺️Географія 11:35–12:20 </td><td><a class="btn btn-primary" href="https://meet.google.com/pqf-rtni-ymy">Онлайн урок</a></td></tr>
+      <tr><td>⚗️Хімія 12:25–13:10 </td><td><a class="btn btn-primary" href="https://meet.google.com/bkb-xhph-vfx">Онлайн урок</a></td></tr>
+    </table>
+
+    <!-- Четвер -->
+    <h3 data-day="thursday"><span class="logo-text">четвер</span></h3>
+    <table data-day="thursday">
+      <tr><td>📖Зарубіжна література 08:00–08:45 </td><td><a class="btn btn-primary" href="https://meet.google.com/ecg-cxwe-oud">Онлайн урок</a></td></tr>
+      <tr><td>🧬Біологія 08:50–09:35 </td><td><a class="btn btn-primary" href="https://meet.google.com/bkb-xhph-vfx">Онлайн урок</a></td></tr>
+      <tr><td>➗Математика 09:45–10:30 </td><td><a class="btn btn-primary" href="https://meet.google.com/pbv-todf-wmq">Онлайн урок</a></td></tr>
+      <tr><td>➗Математика 10:40–11:25 </td><td><a class="btn btn-primary" href="https://meet.google.com/pbv-todf-wmq">Онлайн урок</a></td></tr>
+      <tr><td>✍️Українська мова 11:35–12:20 </td><td><a class="btn btn-primary" href="https://meet.google.com/syg-wkdi-bpz">група 1</a> <a class="btn btn-primary" href="https://meet.google.com/hpz-yadh-itq">група 2</a></td></tr>
+      <tr><td>✍️Українська мова 12:25–13:10 </td><td><a class="btn btn-primary" href="https://meet.google.com/syg-wkdi-bpz">група 1</a> <a class="btn btn-primary" href="https://meet.google.com/hpz-yadh-itq">група 2</a></td></tr>
+    </table>
+
+    <!-- П’ятниця -->
+    <h3 data-day="friday"><span class="logo-text">п'ятниця</span></h3>
+    <table data-day="friday">
+      <tr><td>🗣️Англійська мова 08:00–08:45 </td><td><a class="btn btn-primary" href=https://meet.google.com/ekh-jxsg-kwa">група 1</a> <a class="btn btn-primary" href="https://meet.google.com/euj-tcid-vuk">група 2</a></td></tr>
+      <tr><td>🏃‍♂️Фізична культура 08:50–09:35 </td><td><a class="btn btn-primary" href="https://meet.google.com/qdn-noim-xrw">Онлайн урок</a></td></tr>
+      <tr><td>🛡️Захист України 09:45–10:30 </td><td><a class="btn btn-primary" href="https://meet.google.com/pct-iynx-qtr">група 1</a> <a class="btn btn-primary" href="https://meet.google.com/crv-uwvg-vkk">група 2</a></td></tr>
+      <tr><td>🧲Фізика 10:40–11:25 </td><td><a class="btn btn-primary" href="https://meet.google.com/bmv-psqa-sco">Онлайн урок</a></td></tr>
+      <tr><td>🧲Фізика 11:35–12:20 </td><td><a class="btn btn-primary" href="https://meet.google.com/bmv-psqa-sco">Онлайн урок</a></td></tr>
+    </table>
+</div>
+        <div class="hero-visual">
+          <div class="floating-card card-1">
+            <span class="card-icon">☮</span>
+            <span class="card-text">мрії</span>
+          </div>
+          <div class="floating-card card-2">
+            <span class="card-icon">☂</span>
+            <span class="card-text">шлях</span>
+          </div>
+          <div class="floating-card card-3">
+            <span class="card-icon">♚</span>
+            <span class="card-text">успіх</span>
+          </div>
+          <div class="orb orb-1"></div>
+          <div class="orb orb-2"></div>
+          <div class="orb orb-3"></div>
+        </div>
+
+      <!-- Custom Section - Your Content Here -->
+      <section id="custom" class="custom-section">
+        <div class="custom-content">
+          <!-- Вставь свой контент сюда -->
+
+        </div>
+      </section>
+
+
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <span class="logo-text">10</span>
+          <span class="logo-letter">Л</span>
+        </div>
+        <p>© 2026 Клас 10Л. hed3d(paradise141) & ASORDER</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Telegram">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="main.ts"></script>
+    <script> /*день*/
+function showLesson(){
+  const now = new Date();
+  const day = now.getDay();
+  const days = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+
+  document.querySelectorAll("table[data-day]").forEach(t=>t.style.display='none');
+  document.querySelectorAll("h3[data-day]").forEach(h=>h.style.display='none');
+
+  const key = days[day];
+  const table = document.querySelector(`table[data-day="${key}"]`);
+  const head = document.querySelector(`h3[data-day="${key}"]`);
+
+  if(table){
+    table.style.display='table';
+    head.style.display='block';
+  }
+}
+showLesson();
+</script>
+
+  </body>
 </html>
